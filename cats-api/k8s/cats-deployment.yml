@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cats-api
+  labels:
+    app: cats-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cats-api
+  template:
+    metadata:
+      labels:
+        app: cats-api
+    spec:
+      containers:
+        - name: cats-api
+          image: registry.hub.docker.com/jirafus400/cats-api-image:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://cats-postgres:5431/cats-api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cats-api
+spec:
+  selector:
+    app: cats-api
+  ports:
+    - protocol: "TCP"
+      port: 8080
+      targetPort: 8080
+  type: NodePort
