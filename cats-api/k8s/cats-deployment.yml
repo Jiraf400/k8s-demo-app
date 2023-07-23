@@ -23,8 +23,6 @@ spec:
           env:
             - name: SPRING_DATASOURCE_URL
               value: jdbc:postgresql://cats-postgres:5431/cats-api
-            - name: spring.mvc.servlet.path
-              value: /cats-api
 ---
 apiVersion: v1
 kind: Service
