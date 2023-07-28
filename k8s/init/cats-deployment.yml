@@ -16,13 +16,13 @@ spec:
     spec:
       containers:
         - name: cats-api
-          image: jirafus400/cats-api-demo
+          image: registry.hub.docker.com/jirafus400/cats-api-demo:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
           env:
-            - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://cats-postgres:5431/cats-api
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker
 ---
 apiVersion: v1
 kind: Service
@@ -36,4 +36,5 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 8080
-  type: NodePort
+status:
+  loadBalancer: { }
