@@ -11,9 +11,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 public class CatsApiApplication {
 
     public static void main(String[] args) {
-        log.info("Start initialization v1");
+        log.info("Start initialization v4: Changed config");
         SpringApplication.run(CatsApiApplication.class, args);
-        log.info("Initialized successfully 1");
     }
 
 }

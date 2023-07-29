@@ -5,7 +5,7 @@ metadata:
   labels:
     app: cats-api
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: cats-api
@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
         - name: cats-api
-          image: registry.hub.docker.com/jirafus400/cats-api-demo:latest
-          imagePullPolicy: IfNotPresent
+          image: registry.hub.docker.com/jirafus400/cats-api-demo-k8s:latest
+          imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - containerPort: 8182
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: docker
@@ -35,6 +35,5 @@ spec:
     - name: http
       protocol: TCP
       port: 80
-      targetPort: 8080
-status:
-  loadBalancer: { }
+      targetPort: 8182
+  type: NodePort

@@ -21,10 +21,11 @@ spec:
               value: ' TRACE'
             - name: SPRING_PROFILES_ACTIVE
               value: docker
+            - name: spring.cloud.kubernetes.discovery.discovery-server-url
+              value: http://eureka-server.default.svc.cluster.local
           image: registry.hub.docker.com/jirafus400/cats-gateway-demo:latest
           name: api-gateway
           ports:
-            - containerPort: 8080
             - containerPort: 9191
           resources: {}
       restartPolicy: Always
@@ -37,11 +38,13 @@ metadata:
     app: api-gateway
   name: api-gateway
 spec:
-  type: LoadBalancer
+  type: NodePort
+#  command: [ "java" ]
+#  args: ["-Dspring.cloud.kubernetes.discovery.discovery-server-url=http://eureka-server.default.svc.cluster.local", "-Dspring.cloud.kubernetes.discovery.enabled=true"]
   ports:
     - name: "9191"
       port: 9191
-      targetPort: 8080
+      targetPort: 9191
   selector:
     app: api-gateway
 status:

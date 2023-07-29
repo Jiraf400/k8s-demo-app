@@ -15,7 +15,7 @@ services:
 #      POSTGRES_DB: cats-api
 
   eureka-server:
-    image: registry.hub.docker.com/jirafus400/cats-eureka:latest
+    image:  registry.hub.docker.com/jirafus400/cats-eureka:latest
     container_name: eureka-server
     ports:
       - "8761:8761"
@@ -36,7 +36,7 @@ services:
       - eureka-server
 
   cats-api:
-    image: registry.hub.docker.com/jirafus400/cats-api-demo:latest
+    image: registry.hub.docker.com/jirafus400/cats-api-demo-k8s:latest
     container_name: cats-api
     environment:
       - SPRING_PROFILES_ACTIVE=docker

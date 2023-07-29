@@ -9,17 +9,17 @@ spec:
     - host: demo-cats.internal
       http:
         paths:
-          - path: /cats-api(/|$)(.*)
+          - path: /gateway(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: api-gateway
+                port:
+                  number: 9191
+          - path: /web(/|$)(.*)
             pathType: Prefix
             backend:
               service:
                 name: cats-api
                 port:
-                  number: 8080
-          - path: /hello-api(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: web
-                port:
-                  number: 8080
+                  number: 8182
