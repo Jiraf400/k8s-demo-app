@@ -424,7 +424,6 @@
         }
       ]
     },
-    "groups": [],
     "defaultRole": {
       "id": "66c3e90f-00a8-4002-83e4-d406c902ef29",
       "name": "default-roles-pastebin-project-realm",
@@ -489,8 +488,7 @@
             "uma_protection"
           ]
         },
-        "notBefore": 0,
-        "groups": []
+        "notBefore": 0
       }
     ],
     "scopeMappings": [
