@@ -39,8 +39,6 @@ metadata:
   name: api-gateway
 spec:
   type: NodePort
-#  command: [ "java" ]
-#  args: ["-Dspring.cloud.kubernetes.discovery.discovery-server-url=http://eureka-server.default.svc.cluster.local", "-Dspring.cloud.kubernetes.discovery.enabled=true"]
   ports:
     - name: "9191"
       port: 9191
