@@ -12,8 +12,14 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class CatController {
 
-    @GetMapping("/hello")
+    @GetMapping("/secured/hello")
     public String sayHello() {
+        log.info("private sayHello method called");
+        return "<h2> Hello authenticated user. " + new Date() + "</h2>";
+    }
+
+    @GetMapping("/hello")
+    public String sayPublicHello() {
         log.info("sayHello method called");
         return "<h2> Hello anonymous. " + new Date() + "</h2>";
     }

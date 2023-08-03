@@ -818,13 +818,14 @@
         "policies": [
           {
             "id": "2d6aec25-c187-48fa-910c-6df1ab545c82",
-            "name": "Default Policy",
-            "description": "A policy that grants access only for users within this realm",
-            "type": "js",
+            "name": "Default Permission",
+            "description": "A permission that applies to the default resource type",
+            "type": "resource",
             "logic": "POSITIVE",
-            "decisionStrategy": "AFFIRMATIVE",
+            "decisionStrategy": "UNANIMOUS",
             "config": {
-              "code": "// by default, grants any permission associated with this policy\n$evaluation.grant();\n"
+              "defaultResourceType": "urn:pastebin-project-client:resources:default",
+              "applyPolicies": "[\"Default Policy\"]"
             }
           },
           {

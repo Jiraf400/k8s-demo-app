@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app: api-gateway
-  strategy: {}
+  strategy: { }
   template:
     metadata:
       labels:
@@ -23,13 +23,19 @@ spec:
               value: docker
             - name: spring.cloud.kubernetes.discovery.discovery-server-url
               value: http://eureka-server.default.svc.cluster.local
+            - name: spring.cloud.discovery.client.health-indicator.enabled
+              value: 'false'
+            - name: spring.security.oauth2.resourceserver.jwt.issuer-uri
+              value: http://auth.localtest.me/realms/pastebin-project-realm/
+            - name : spring.security.oauth2.resourceserver.jwt.jwk-set-uri
+              value: http://auth.localtest.me/realms/pastebin-project-realm/protocol/openid-connect/certs
           image: registry.hub.docker.com/jirafus400/cats-gateway-demo:latest
           name: api-gateway
           ports:
             - containerPort: 9191
-          resources: {}
+          resources: { }
       restartPolicy: Always
-status: {}
+status: { }
 ---
 apiVersion: v1
 kind: Service
@@ -46,4 +52,4 @@ spec:
   selector:
     app: api-gateway
 status:
-  loadBalancer: {}
+  loadBalancer: { }

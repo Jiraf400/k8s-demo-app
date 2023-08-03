@@ -10,14 +10,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableDiscoveryClient
 public class ApiGatewayApplication {
 
-    /*
-    minikube kube-dns addon ??
-    https://stackoverflow.com/questions/48688339/kubernetes-service-discovery-doesnt-resolve-service-host-on-minikube
-    java.net.UnknownHostException: Failed to resolve 'cats-api-567bbcc9fc-v4t42' [A(1)
-    */
+    //Connect attempt to [localhost/127.0.0.1:8080] failed
 
     public static void main(String[] args) {
-        log.info("Initializing v5 cats-gateway: changed props");
+        log.info("Initializing v7 cats-gateway: replaced issuer-uri");
         SpringApplication.run(ApiGatewayApplication.class, args);
     }
 

@@ -1,42 +1,62 @@
 version: '3'
 services:
-#  cats-postgres:
-#    image: postgres
-#    container_name: cats-postgres
-#    restart: always
+
+#  eureka-server:
+#    image: registry.hub.docker.com/jirafus400/cats-eureka:latest
+#    container_name: eureka-server
 #    ports:
-#      - "5431:5431"
-#    command: -p 5431
-#    expose:
-#      - "5431"
+#      - "8761:8761"
 #    environment:
-#      POSTGRES_PASSWORD: password
-#      POSTGRES_USER: cats
-#      POSTGRES_DB: cats-api
+#      - SPRING_PROFILES_ACTIVE=docker
+#
+#  api-gateway:
+#    image: registry.hub.docker.com/jirafus400/cats-gateway-demo:latest
+#    container_name: api-gateway
+#    ports:
+#      - "9191:9191"
+#    expose:
+#      - "9191"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#      - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY=TRACE
+#    depends_on:
+#      - eureka-server
+#
+#  cats-api:
+#    image: registry.hub.docker.com/jirafus400/cats-api-demo-k8s:latest
+#    container_name: cats-api
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#
 
-  eureka-server:
-    image:  registry.hub.docker.com/jirafus400/cats-eureka:latest
-    container_name: eureka-server
-    ports:
-      - "8761:8761"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
+  #  test
 
-  api-gateway:
-    image: registry.hub.docker.com/jirafus400/cats-gateway-demo:latest
-    container_name: api-gateway
-    ports:
-      - "9191:9191"
-    expose:
-      - "9191"
+  keycloak-test-mysql:
+    container_name: keycloak-test-mysql
+    image: mysql:5.7
+    volumes:
+      - ./mysql_keycloak_data:/var/lib/mysql
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
-      - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY=TRACE
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: password
+
+  keycloak-test:
+    container_name: keycloak-test
+    image: quay.io/keycloak/keycloak:18.0.0
+    command: [ "start-dev", "--import-realm" ]
+    environment:
+      DB_VENDOR: MYSQL
+      DB_ADDR: mysql
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./realms-test/:/opt/keycloak/data/import/
     depends_on:
-      - eureka-server
-
-  cats-api:
-    image: registry.hub.docker.com/jirafus400/cats-api-demo-k8s:latest
-    container_name: cats-api
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
+      - keycloak-test-mysql
