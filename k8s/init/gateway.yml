@@ -25,10 +25,10 @@ spec:
               value: http://eureka-server.default.svc.cluster.local
             - name: spring.cloud.discovery.client.health-indicator.enabled
               value: 'false'
-            - name: spring.security.oauth2.resourceserver.jwt.issuer-uri
-              value: http://auth.localtest.me/realms/pastebin-project-realm/
-            - name : spring.security.oauth2.resourceserver.jwt.jwk-set-uri
-              value: http://auth.localtest.me/realms/pastebin-project-realm/protocol/openid-connect/certs
+#            - name: spring.security.oauth2.resourceserver.jwt.issuer-uri
+#              value: http://localhost:8080/realms/pastebin-project-realm
+#            - name : spring.security.oauth2.resourceserver.jwt.jwk-set-uri
+#              value: http://localhost:8080/realms/pastebin-project-realm/protocol/openid-connect/certs
           image: registry.hub.docker.com/jirafus400/cats-gateway-demo:latest
           name: api-gateway
           ports:
@@ -44,12 +44,10 @@ metadata:
     app: api-gateway
   name: api-gateway
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - name: "9191"
       port: 9191
       targetPort: 9191
   selector:
     app: api-gateway
-status:
-  loadBalancer: { }

@@ -32,31 +32,31 @@ services:
   #  test
 
   keycloak-test-mysql:
-    container_name: keycloak-test-mysql
+    container_name: keycloak.yml-test-mysql
     image: mysql:5.7
     volumes:
       - ./mysql_keycloak_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: keycloak
-      MYSQL_USER: keycloak
+      MYSQL_DATABASE: keycloak.yml
+      MYSQL_USER: keycloak.yml
       MYSQL_PASSWORD: password
 
   keycloak-test:
-    container_name: keycloak-test
-    image: quay.io/keycloak/keycloak:18.0.0
+    container_name: keycloak.yml-test
+    image: quay.io/keycloak.yml/keycloak.yml:18.0.0
     command: [ "start-dev", "--import-realm" ]
     environment:
       DB_VENDOR: MYSQL
       DB_ADDR: mysql
-      DB_DATABASE: keycloak
-      DB_USER: keycloak
+      DB_DATABASE: keycloak.yml
+      DB_USER: keycloak.yml
       DB_PASSWORD: password
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
     ports:
       - "8080:8080"
     volumes:
-      - ./realms-test/:/opt/keycloak/data/import/
+      - ./realms-test/:/opt/keycloak.yml/data/import/
     depends_on:
       - keycloak-test-mysql
