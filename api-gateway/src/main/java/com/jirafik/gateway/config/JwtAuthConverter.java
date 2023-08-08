@@ -1,5 +1,7 @@
 package com.jirafik.gateway.config;
 
+import com.jirafik.gateway.broker.entity.User;
+import com.jirafik.gateway.broker.producer.RabbitProducer;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
@@ -17,10 +19,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class JwtAuthConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
 
+    private final RabbitProducer producer;
+
     @Override
     public Collection<GrantedAuthority> convert(Jwt source) {
 
-        log.info("LOG: received username from token: {}", source.getClaims().get("preferred_username"));
+        producer.sendUploadRequest(new User(source.getClaims().get("preferred_username").toString()));
 
         return ((ArrayList<String>) source.getClaims().get("roles"))
                 .stream()

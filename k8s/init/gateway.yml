@@ -21,14 +21,12 @@ spec:
               value: ' TRACE'
             - name: SPRING_PROFILES_ACTIVE
               value: docker
-            - name: spring.cloud.kubernetes.discovery.discovery-server-url
-              value: http://eureka-server.default.svc.cluster.local
             - name: spring.cloud.discovery.client.health-indicator.enabled
               value: 'false'
-#            - name: spring.security.oauth2.resourceserver.jwt.issuer-uri
-#              value: http://localhost:8080/realms/pastebin-project-realm
-#            - name : spring.security.oauth2.resourceserver.jwt.jwk-set-uri
-#              value: http://localhost:8080/realms/pastebin-project-realm/protocol/openid-connect/certs
+            - name: spring.security.oauth2.resourceserver.jwt.issuer-uri
+              value: http://keycloak:8080/realms/pastebin-project-realm
+            - name: spring.security.oauth2.resourceserver.jwt.jwk-set-uri
+              value: http://keycloak:8080/realms/pastebin-project-realm/protocol/openid-connect/certs
           image: registry.hub.docker.com/jirafus400/cats-gateway-demo:latest
           name: api-gateway
           ports:

@@ -18,13 +18,6 @@ spec:
                 name: api-gateway
                 port:
                   number: 9191
-#          - path: /
-#            pathType: Prefix
-#            backend:
-#              service:
-#                name: cats-api
-#                port:
-#                  number: 8182
     - host: "auth.localtest.me"
       http:
         paths:
@@ -35,3 +28,21 @@ spec:
                 name: keycloak
                 port:
                   number: 8080
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: example-ingress
+#  annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target: /
+#spec:
+#  rules:
+#    - host: auth.localtest.me
+#      http:
+#        paths:
+#          - path: /
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: keycloak
+#                port:
+#                  number: 8080

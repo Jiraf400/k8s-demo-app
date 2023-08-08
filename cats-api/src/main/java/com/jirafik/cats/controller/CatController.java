@@ -1,5 +1,6 @@
 package com.jirafik.cats.controller;
 
+import com.jirafik.cats.broker.consumer.RabbitConsumer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +13,12 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class CatController {
 
+    private final RabbitConsumer consumer;
+
     @GetMapping("/secured/hello")
     public String sayHello() {
         log.info("private sayHello method called");
-        return "<h2> Hello authenticated user. " + new Date() + "</h2>";
+        return "<h2> Hello " + consumer.getUser().getUsername() + ".\nToday: " + new Date() + "</h2>";
     }
 
     @GetMapping("/hello")
@@ -23,17 +26,5 @@ public class CatController {
         log.info("sayHello method called");
         return "<h2> Hello anonymous. " + new Date() + "</h2>";
     }
-
-//    @PostMapping("/save")
-//    public Cat save(@RequestBody CatDto cat) {
-//        log.info("save method called");
-//        return service.save(cat);
-//    }
-//
-//    @GetMapping("/getAll")
-//    public Iterable<Cat> getAll() {
-//        log.info("getAll method called");
-//        return service.getAll();
-//    }
 
 }

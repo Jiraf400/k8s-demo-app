@@ -19,7 +19,7 @@ spec:
           image: registry.hub.docker.com/jirafus400/cats-api-demo-k8s:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 8182
+            - containerPort: 8080
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: docker
@@ -32,8 +32,8 @@ spec:
   selector:
     app: cats-api
   ports:
-    - name: http
-      protocol: TCP
-      port: 80
+    - protocol: "TCP"
+      port: 8080
       targetPort: 8182
   type: NodePort
+
