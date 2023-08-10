@@ -11,7 +11,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 public class ApiGatewayApplication {
 
     public static void main(String[] args) {
-        log.info("Initializing v7 cats-gateway: reconfigured issuer uri");
+        log.info("Initializing v1 cats-gateway: added rabbitmq to prop");
         SpringApplication.run(ApiGatewayApplication.class, args);
     }
 

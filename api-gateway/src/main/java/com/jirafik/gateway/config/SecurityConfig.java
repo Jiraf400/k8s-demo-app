@@ -14,7 +14,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @EnableWebFluxSecurity
 public class SecurityConfig {
 
-//    private final JwtAuthConverter jwtConverter;
+    private final JwtAuthConverter jwtConverter;
 
     @Bean
     public SecurityWebFilterChain configureResourceServer(ServerHttpSecurity httpSecurity) {
@@ -30,22 +30,21 @@ public class SecurityConfig {
                 .formLogin().disable()
                 .logout().disable();
 
-//        httpSecurity
-//                .oauth2ResourceServer().jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()));
+        httpSecurity
+                .oauth2ResourceServer().jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()));
 
-        httpSecurity.oauth2ResourceServer().jwt();
 
         return httpSecurity.build();
     }
 
-//    //Role Converter
-//    @Bean
-//    public ReactiveJwtAuthenticationConverter jwtAuthenticationConverter() {
-//        var jwtAuthenticationConverter = new ReactiveJwtAuthenticationConverter();
-//        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(
-//                new ReactiveJwtGrantedAuthoritiesConverterAdapter(jwtConverter));
-//
-//        return jwtAuthenticationConverter;
-//    }
+    //Role Converter
+    @Bean
+    public ReactiveJwtAuthenticationConverter jwtAuthenticationConverter() {
+        var jwtAuthenticationConverter = new ReactiveJwtAuthenticationConverter();
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(
+                new ReactiveJwtGrantedAuthoritiesConverterAdapter(jwtConverter));
+
+        return jwtAuthenticationConverter;
+    }
 
 }
